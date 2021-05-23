@@ -168,26 +168,22 @@ func Encode(out *jwriter.Writer, in User) {
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
 func (v User) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
 	Encode(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
-// MarshalEasyJSON supports easyjson.Marshaler interface
 func (v User) MarshalEasyJSON(w *jwriter.Writer) {
 	Encode(w, v)
 }
 
-// UnmarshalJSON supports json.Unmarshaler interface
 func (v *User) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
 	Decode(&r, v)
 	return r.Error()
 }
 
-// UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *User) UnmarshalEasyJSON(l *jlexer.Lexer) {
 	Decode(l, v)
 }
